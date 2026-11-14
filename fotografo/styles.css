@@ -1,0 +1,92 @@
+/* Diego Ferrer · creativo: negro, blanco y verde lima. */
+:root {
+  --bg: #0d0d0d;
+  --card: #171717;
+  --card-2: #222;
+  --line: rgba(255, 255, 255, 0.1);
+  --text: #f5f5f0;
+  --muted: rgba(245, 245, 240, 0.6);
+  --lime: #d4ff3f;
+  --display: "Syne", system-ui, sans-serif;
+  --sans: "Inter", system-ui, sans-serif;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { min-height: 100svh; font-family: var(--sans); color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
+[hidden] { display: none !important; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+
+.card { display: grid; gap: 16px; width: min(100%, 480px); margin: 0 auto; padding: 0 16px 40px; }
+
+/* Encabezado: foto grande con el nombre encima */
+.head { position: relative; margin: 0 -16px; aspect-ratio: 4 / 5; overflow: hidden; }
+.photo { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.2) contrast(1.05); animation: zoom 1.6s var(--ease) both; }
+.head::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13, 13, 13, 0) 40%, rgba(13, 13, 13, 0.85) 80%, var(--bg)); }
+.head-text { position: absolute; left: 16px; right: 16px; bottom: 6px; z-index: 1; }
+.tag { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 99px; background: rgba(13, 13, 13, 0.6); font-size: 0.78rem; font-weight: 600; backdrop-filter: blur(6px); animation: up 0.8s var(--ease) 0.2s both; }
+.rec { width: 8px; height: 8px; border-radius: 50%; background: #ff3b30; animation: blink 1.4s steps(2) infinite; }
+.name { margin-top: 10px; font-family: var(--display); font-weight: 800; font-size: clamp(2.6rem, 12.5vw, 3.9rem); line-height: 0.9; letter-spacing: -0.03em; text-transform: uppercase; animation: up 0.9s var(--ease) 0.3s both; }
+.role { margin-top: 10px; font-weight: 500; color: var(--lime); animation: up 0.9s var(--ease) 0.4s both; }
+@keyframes zoom { from { scale: 1.12; } }
+@keyframes up { from { opacity: 0; translate: 0 16px; } }
+@keyframes blink { 50% { opacity: 0.2; } }
+
+/* Botones de contacto */
+.actions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 4px; }
+.actions a { display: grid; justify-items: center; gap: 6px; padding: 14px 4px 12px; border-radius: 16px; background: var(--card); font-size: 0.76rem; font-weight: 600; transition: background 0.2s ease, color 0.2s ease, scale 0.15s ease; }
+.actions i { font-size: 1.2rem; }
+.actions a:hover { background: var(--lime); color: var(--bg); }
+.actions a:active { scale: 0.95; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 12px 20px; border: 0; border-radius: 99px; font-weight: 600; transition: background 0.2s ease, color 0.2s ease, scale 0.15s ease; }
+.btn:active { scale: 0.97; }
+.btn--main { background: var(--lime); color: var(--bg); }
+.btn--main:hover { background: #fff; }
+.btn--line { background: var(--card); }
+.btn--line:hover { background: var(--card-2); }
+
+/* Bloques */
+.block { display: grid; gap: 16px; padding: 20px 18px; border-radius: 22px; background: var(--card); }
+.block h2 { font-family: var(--display); font-weight: 700; font-size: 1.5rem; }
+.block-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.block-head span { font-size: 0.85rem; color: var(--muted); }
+.shots { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; list-style: none; }
+.shots li { position: relative; overflow: hidden; border-radius: 14px; }
+.shots img { width: 100%; aspect-ratio: 1; object-fit: cover; transition: scale 0.5s var(--ease); }
+.shots li:hover img { scale: 1.06; }
+.shots span { position: absolute; left: 8px; bottom: 8px; padding: 3px 10px; border-radius: 99px; background: rgba(13, 13, 13, 0.7); font-size: 0.75rem; font-weight: 600; backdrop-filter: blur(4px); }
+.packs { display: grid; list-style: none; }
+.packs li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.packs li:first-child { padding-top: 0; }
+.packs strong { display: block; font-weight: 600; }
+.packs span { font-size: 0.86rem; color: var(--muted); }
+.packs b { flex: none; font-family: var(--display); font-weight: 700; font-size: 1.15rem; color: var(--lime); text-align: right; }
+.packs small { display: block; font-family: var(--sans); font-size: 0.7rem; font-weight: 500; color: var(--muted); }
+.share-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.credit { justify-self: center; margin-top: 10px; font-size: 0.8rem; color: var(--muted); }
+.credit:hover { color: var(--lime); }
+
+/* QR y aviso */
+.qr { margin: auto; padding: 0; border: 0; border-radius: 24px; background: #fff; color: var(--bg); }
+.qr::backdrop { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(3px); }
+.qr-inner { display: grid; justify-items: center; gap: 14px; width: min(86vw, 320px); padding: 26px; text-align: center; }
+.qr-inner:focus { outline: none; }
+.qr-title { font-weight: 600; }
+.qr-box { width: 100%; aspect-ratio: 1; }
+.qr-box svg { width: 100%; height: 100%; }
+.qr-name { font-family: var(--display); font-weight: 800; font-size: 1.4rem; text-transform: uppercase; }
+.qr .btn { width: 100%; background: var(--bg); color: #fff; }
+.toast { position: fixed; left: 50%; top: 16px; z-index: 100; max-width: calc(100% - 32px); padding: 12px 18px; border-radius: 14px; background: var(--lime); color: var(--bg); font-weight: 600; font-size: 0.92rem; text-align: center; translate: -50% -160%; transition: translate 0.35s var(--ease); pointer-events: none; }
+.toast.show { translate: -50% 0; }
+
+@media (min-width: 600px) {
+  body { padding: 30px 0; background: radial-gradient(circle at 50% 0, #1d1d1d, var(--bg) 60%); }
+  .card { padding: 0 20px 30px; overflow: hidden; border-radius: 30px; background: var(--bg); box-shadow: 0 0 0 1px var(--line), 0 40px 80px -40px rgba(0, 0, 0, 0.9); }
+  .head { margin: 0 -20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: 0.01s !important; }
+}
