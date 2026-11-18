@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Pasteles Lulú · Repostería por encargo en Puebla</title>
+  <meta name="description" content="Pasteles, cupcakes y galletas por encargo en Puebla. Cotiza tu pastel en un minuto y pídelo por WhatsApp." />
+  <meta name="theme-color" content="#f8cdd6" />
+  <!-- Vista previa al compartir (WhatsApp, Facebook…). Al publicar, cambia la ruta de la imagen
+       por la URL completa, ej. https://tudominio.com/assets/og.jpg -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="Pasteles Lulú · Repostería por encargo en Puebla" />
+  <meta property="og:description" content="Cotiza tu pastel en un minuto y pídelo por WhatsApp." />
+  <meta property="og:image" content="assets/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="styles.css?v=1" />
+</head>
+<body>
+  <!-- Tarjeta digital de ejemplo (repostería ficticia). Ilustrada con CSS: no usa fotos.
+       Datos y precios del cotizador están en tarjeta.js (lo que comparten todas, en ../comun.js). -->
+  <main class="card">
+    <header class="head">
+      <p class="logo">Pasteles Lulú</p>
+      <h1 class="name">Lourdes «Lulú» Herrera</h1>
+      <p class="role">Repostera · pasteles por encargo en Puebla</p>
+      <p class="status" data-abierto hidden></p>
+    </header>
+
+    <nav class="actions" aria-label="Contacto">
+      <a data-call><i class="fa-solid fa-phone"></i><span>Llamar</span></a>
+      <a data-wa><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a>
+      <a href="https://www.instagram.com/" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i><span>Pasteles</span></a>
+      <a data-map><i class="fa-solid fa-store"></i><span>Recoger</span></a>
+    </nav>
+
+    <button class="btn btn--main" type="button" data-vcard><i class="fa-solid fa-user-plus"></i> Guardar contacto</button>
+
+    <section class="block block--cake" id="cotiza">
+      <h2>Cotiza tu pastel</h2>
+      <p class="sub">Elige y mira cómo queda. Te confirmo por WhatsApp.</p>
+
+      <div class="stage" aria-hidden="true">
+        <div class="cake" data-cake data-pisos="1">
+          <span class="cherry"></span>
+          <span class="tier tier--3"></span>
+          <span class="tier tier--2"></span>
+          <span class="tier tier--1"></span>
+          <span class="plate"></span>
+          <span class="plaque" data-placa hidden></span>
+        </div>
+      </div>
+
+      <form class="quote" data-pastel novalidate>
+        <fieldset>
+          <legend>¿Para cuántas personas?</legend>
+          <div class="seg seg--4">
+            <label><input type="radio" name="personas" value="10" checked /><span><b>10</b>$450</span></label>
+            <label><input type="radio" name="personas" value="20" /><span><b>20</b>$750</span></label>
+            <label><input type="radio" name="personas" value="30" /><span><b>30</b>$1,050</span></label>
+            <label><input type="radio" name="personas" value="50" /><span><b>50</b>$1,600</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Sabor del pan</legend>
+          <div class="pills" data-sabores></div>
+        </fieldset>
+        <label class="field"><span>Relleno</span>
+          <select name="relleno">
+            <option>Fresa con crema</option>
+            <option>Cajeta</option>
+            <option>Zarzamora</option>
+            <option value="Nutella">Nutella (+$80)</option>
+          </select>
+        </label>
+        <fieldset>
+          <legend>Decoración</legend>
+          <div class="pills" data-decoraciones></div>
+        </fieldset>
+        <label class="field"><span>Mensaje en el pastel <small>(opcional)</small></span><input name="mensaje" maxlength="24" placeholder="Ej. ¡Feliz cumple, Ana!" /></label>
+        <label class="field"><span>¿Para cuándo?</span><input name="fecha" type="date" /></label>
+        <p class="form-error" data-pastel-error role="alert" hidden></p>
+        <div class="total">
+          <p><small>Precio estimado</small><span data-precio>$450</span></p>
+          <button class="btn btn--cherry" type="submit"><i class="fa-brands fa-whatsapp"></i> Pedirlo</button>
+        </div>
+        <p class="hint">Pedidos con 3 días de anticipación · envío en Puebla $80</p>
+      </form>
+    </section>
+
+    <section class="block">
+      <h2>Por docena</h2>
+      <ul class="dozen">
+        <li><span class="dot dot--cup" aria-hidden="true"></span><div><strong>Cupcakes</strong><small>Con betún y chispas</small></div><b>$290</b><a class="mini" data-wa-text="Hola Lulú, quiero una docena de cupcakes." aria-label="Pedir cupcakes"><i class="fa-brands fa-whatsapp"></i></a></li>
+        <li><span class="dot dot--cookie" aria-hidden="true"></span><div><strong>Galletas decoradas</strong><small>Con el tema que quieras</small></div><b>$340</b><a class="mini" data-wa-text="Hola Lulú, quiero una docena de galletas decoradas." aria-label="Pedir galletas"><i class="fa-brands fa-whatsapp"></i></a></li>
+        <li><span class="dot dot--jelly" aria-hidden="true"></span><div><strong>Gelatinas de mosaico</strong><small>Individuales</small></div><b>$220</b><a class="mini" data-wa-text="Hola Lulú, quiero una docena de gelatinas de mosaico." aria-label="Pedir gelatinas"><i class="fa-brands fa-whatsapp"></i></a></li>
+      </ul>
+    </section>
+
+    <p class="address"><i class="fa-solid fa-store"></i> Recoge en Calle 25 Sur 1104, col. Volcanes, Puebla · martes a sábado de 10 a 7, domingo de 10 a 2</p>
+
+    <div class="share-row">
+      <button class="btn btn--line" type="button" data-share><i class="fa-solid fa-share-nodes"></i> Compartir</button>
+      <button class="btn btn--line" type="button" data-qr><i class="fa-solid fa-qrcode"></i> Mi QR</button>
+    </div>
+
+    <a class="credit" href="../">Tarjeta de yalech →</a>
+  </main>
+
+  <dialog class="qr" id="qr" aria-labelledby="qr-title">
+    <div class="qr-inner" tabindex="-1" autofocus>
+      <p class="qr-title" id="qr-title">Escanea para guardar mi tarjeta</p>
+      <div class="qr-box" data-qr-box></div>
+      <p class="qr-name">Pasteles Lulú</p>
+      <button class="btn btn--line" type="button" data-close>Cerrar</button>
+    </div>
+  </dialog>
+
+  <div class="toast" role="status" aria-live="polite" data-toast></div>
+
+  <script src="../assets/motion.js"></script>
+  <script src="../assets/qrcode.min.js"></script>
+  <script src="tarjeta.js?v=1"></script>
+  <script src="../comun.js?v=2"></script>
+</body>
+</html>

@@ -1,9 +1,12 @@
 // Funciones que comparten las tarjetas digitales. Cada tarjeta define antes (en su tarjeta.js):
 //   TARJETA = { prefijo, nombre, apellido, puesto, empresa, tel, whatsapp, email, web?,
-//               direccion: { calle, ciudad, estado, cp }, mapa, foto, nota?, saludo }
+//               direccion: { calle, ciudad, estado, cp }, mapa, foto?, nota?, saludo,
+//               horario?: [dom, lun, mar, mié, jue, vie, sáb] con [abre, cierra] en horas (9.5 = 9:30) o null,
+//               iniciar?: util => {…} (lo propio de cada tarjeta: cotizador, citas… usa util.abrirWA) }
 // La página usa: [data-call] [data-wa] [data-mail] [data-map] (se llenan solos),
 //   [data-vcard] guardar contacto · [data-share] compartir · [data-qr] mostrar QR (#qr con [data-qr-box])
 //   [data-wa-text="…"] otros botones de WhatsApp con su propio mensaje · [data-toast] avisos
+//   [data-abierto] «Abierto ahora · cierra 7 pm» según T.horario (clase is-open cuando está abierto)
 (() => {
   const T = window.TARJETA;
   const $ = (s, el = document) => el.querySelector(s);
@@ -30,6 +33,7 @@
   // ---------- Guardar contacto (vCard: la agenda del celular la reconoce) ----------
   const esc = t => String(t || '').replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/([,;])/g, '\\$1');
   const fotoBase64 = async () => {
+    if (!T.foto) return ''; // tarjeta ilustrada, sin foto
     try {
       const r = await fetch(T.foto);
       if (!r.ok) return '';
@@ -96,6 +100,62 @@
     dlg.showModal();
   }));
   dlg?.addEventListener('click', e => { if (e.target === dlg || e.target.closest('[data-close]')) dlg.close(); });
+
+  // ---------- Abierto / cerrado según el horario ----------
+  const DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+  const hora = h => {
+    const H = Math.floor(h) % 24, m = Math.round((h - Math.floor(h)) * 60);
+    return `${((H + 11) % 12) + 1}${m ? ':' + String(m).padStart(2, '0') : ''} ${H < 12 ? 'am' : 'pm'}`;
+  };
+  const estado = (d = new Date()) => {
+    const H = T.horario;
+    if (!H) return null;
+    const hoy = d.getDay(), h = d.getHours() + d.getMinutes() / 60, r = H[hoy];
+    if (r && h >= r[0] && h < r[1]) return { abierto: true, texto: `Abierto ahora · cierra ${hora(r[1])}` };
+    if (r && h < r[0]) return { abierto: false, texto: `Cerrado · abre hoy ${hora(r[0])}` };
+    for (let i = 1; i <= 7; i++) {
+      const dd = (hoy + i) % 7;
+      if (H[dd]) return { abierto: false, texto: `Cerrado · abre ${i === 1 ? 'mañana' : 'el ' + DIAS[dd]} ${hora(H[dd][0])}` };
+    }
+    return null;
+  };
+  const pintarEstado = () => {
+    const e = estado();
+    $$('[data-abierto]').forEach(el => {
+      el.hidden = !e;
+      if (!e) return;
+      el.textContent = e.texto;
+      el.classList.toggle('is-open', e.abierto);
+    });
+  };
+  pintarEstado();
+  setInterval(pintarEstado, 60000);
+
+  // Próximos días en que se atiende (para elegir fecha de cita)
+  const proximosDias = (n, desde = new Date()) => {
+    const lista = [];
+    for (let i = 0; lista.length < n && i < 30; i++) {
+      const d = new Date(desde.getFullYear(), desde.getMonth(), desde.getDate() + i);
+      const r = T.horario?.[d.getDay()];
+      if (!r) continue;
+      if (i === 0 && desde.getHours() + desde.getMinutes() / 60 >= r[1] - 1) continue; // hoy ya casi cierra
+      lista.push(d);
+    }
+    return lista;
+  };
+  const fechaCorta = (d, hoy = new Date()) => {
+    const sinHora = x => new Date(x.getFullYear(), x.getMonth(), x.getDate());
+    const dif = Math.round((sinHora(d) - sinHora(hoy)) / 864e5);
+    if (dif === 0) return 'hoy';
+    if (dif === 1) return 'mañana';
+    return `${DIAS[d.getDay()]} ${d.getDate()}`;
+  };
+  const dinero = n => '$' + Math.round(n).toLocaleString('es-MX');
+  const abrirWA = texto => window.open(wa(texto), '_blank', 'noopener');
+  window.__estado = estado; // para las pruebas
+
+  // ---------- Lo propio de cada tarjeta ----------
+  T.iniciar?.({ $, $$, abrirWA, toast, estado, hora, proximosDias, fechaCorta, dinero, DIAS });
 
   // ---------- Efectos al bajar ----------
   if (window.motion && T.efectos) {

@@ -1,0 +1,42 @@
+/* Señales de los carruseles (assets/carrusel.js). Colores ajustables por página:
+   --rail-ink (flechas y punto activo), --rail-on (ícono sobre la flecha), --rail-dot (puntos) */
+.rail { position: relative; }
+.rail-btn {
+  position: absolute;
+  top: var(--rail-top, 38%);
+  z-index: 5;
+  display: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--rail-ink, #0e0f10);
+  color: var(--rail-on, #fff);
+  font-size: 0.95rem;
+  box-shadow: 0 10px 22px -8px rgba(0, 0, 0, 0.55), 0 0 0 3px rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  translate: 0 -50%;
+  transition: opacity 0.25s ease, scale 0.15s ease;
+}
+.rail-btn:active { scale: 0.92; }
+.rail-btn--prev { left: 8px; }
+.rail-btn--next { right: 8px; animation: rail-hint 1.8s ease-in-out 1s 3; }
+.rail.is-scrollable .rail-btn { display: grid; }
+.rail-btn.is-hidden { opacity: 0; pointer-events: none; }
+@keyframes rail-hint { 50% { translate: 5px -50%; } }
+
+.rail-ui { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 4px; padding: 0 20px; }
+.rail-ui[hidden] { display: none; }
+.rail-dots { display: flex; gap: 6px; }
+.rail-dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 99px; background: var(--rail-dot, rgba(0, 0, 0, 0.2)); cursor: pointer; transition: width 0.3s ease, background 0.3s ease; }
+.rail-dots button.is-on { width: 22px; background: var(--rail-ink, #0e0f10); }
+.rail-count { font-size: 0.8rem; font-weight: 600; color: var(--rail-count, rgba(0, 0, 0, 0.55)); font-variant-numeric: tabular-nums; }
+
+/* La «probadita»: los elementos se asoman hacia la izquierda y regresan */
+.is-nudging > * > * { animation: rail-nudge 1.5s cubic-bezier(0.45, 0, 0.2, 1); }
+@keyframes rail-nudge { 35% { translate: -56px 0; } 60% { translate: -56px 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .rail-btn--next, .is-nudging > * > * { animation: none; }
+}

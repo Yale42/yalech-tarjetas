@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Dra. Sofía Ríos · Dentista en Guadalajara</title>
+  <meta name="description" content="Limpiezas, resinas, ortodoncia y blanqueamiento en Guadalajara. Agenda tu cita por WhatsApp." />
+  <meta name="theme-color" content="#0b4f4a" />
+  <!-- Vista previa al compartir (WhatsApp, Facebook…). Al publicar, cambia la ruta de la imagen
+       por la URL completa, ej. https://tudominio.com/assets/og.jpg -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="Dra. Sofía Ríos · Dentista en Guadalajara" />
+  <meta property="og:description" content="Limpiezas, resinas, ortodoncia y blanqueamiento. Agenda tu cita por WhatsApp." />
+  <meta property="og:image" content="assets/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="styles.css?v=1" />
+</head>
+<body>
+  <!-- Tarjeta digital de ejemplo (persona ficticia). Ilustrada con CSS: no usa fotos.
+       Datos, horario y la agenda de citas están en tarjeta.js (lo que comparten todas, en ../comun.js). -->
+  <main class="card">
+    <header class="head">
+      <div class="avatar" aria-hidden="true">
+        <svg viewBox="0 0 64 64"><path d="M20 10c-7 0-12 6-12 14 0 6 3 10 5 16 2 7 3 16 8 16 4 0 4-9 6-14 1-3 3-4 5-4s4 1 5 4c2 5 2 14 6 14 5 0 6-9 8-16 2-6 5-10 5-16 0-8-5-14-12-14-5 0-8 3-12 3s-7-3-12-3Z" /></svg>
+      </div>
+      <p class="status" data-abierto hidden></p>
+      <h1 class="name"><small>Dra.</small> Sofía Ríos</h1>
+      <p class="role">Cirujana dentista · Ortodoncia</p>
+      <p class="clinic">Clínica Sonríe · Providencia, Guadalajara</p>
+      <ul class="facts">
+        <li><strong>12</strong><span>años</span></li>
+        <li><strong>4.9 ★</strong><span>Google</span></li>
+        <li><strong>UdeG</strong><span>egresada</span></li>
+      </ul>
+    </header>
+
+    <nav class="actions" aria-label="Contacto">
+      <a data-call><i class="fa-solid fa-phone"></i><span>Llamar</span></a>
+      <a data-wa><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a>
+      <a data-mail><i class="fa-regular fa-envelope"></i><span>Correo</span></a>
+      <a data-map><i class="fa-solid fa-location-dot"></i><span>Clínica</span></a>
+    </nav>
+
+    <button class="btn btn--main" type="button" data-vcard><i class="fa-solid fa-user-plus"></i> Guardar contacto</button>
+
+    <section class="block block--cita" id="cita">
+      <p class="kicker"><i class="fa-regular fa-calendar-check"></i> Agenda en 20 segundos</p>
+      <h2>Aparta tu cita</h2>
+      <form class="cita" data-cita novalidate>
+        <fieldset>
+          <legend>¿Para qué es?</legend>
+          <div class="pills">
+            <label><input type="radio" name="motivo" value="Limpieza" /><span>Limpieza</span></label>
+            <label><input type="radio" name="motivo" value="Revisión general" /><span>Revisión</span></label>
+            <label><input type="radio" name="motivo" value="Dolor o urgencia" /><span>Me duele</span></label>
+            <label><input type="radio" name="motivo" value="Valoración de ortodoncia" /><span>Brackets</span></label>
+            <label><input type="radio" name="motivo" value="Blanqueamiento" /><span>Blanqueamiento</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>¿Qué día?</legend>
+          <div class="days" data-dias></div>
+        </fieldset>
+        <fieldset>
+          <legend>¿A qué hora te acomoda?</legend>
+          <div class="pills pills--2">
+            <label><input type="radio" name="turno" value="Mañana (9 a 1)" checked /><span><i class="fa-regular fa-sun"></i> Mañana</span></label>
+            <label><input type="radio" name="turno" value="Tarde (4 a 7)" /><span><i class="fa-regular fa-moon"></i> Tarde</span></label>
+          </div>
+        </fieldset>
+        <label class="field"><span>Tu nombre</span><input name="nombre" maxlength="40" autocomplete="given-name" placeholder="Ej. Mariana" /></label>
+        <p class="form-error" data-cita-error role="alert" hidden></p>
+        <button class="btn btn--coral" type="submit"><i class="fa-brands fa-whatsapp"></i> Pedir mi cita</button>
+        <p class="hint">Te confirmo la hora exacta por WhatsApp.</p>
+      </form>
+    </section>
+
+    <section class="block">
+      <h2>Tratamientos</h2>
+      <ul class="prices">
+        <li><span><i class="fa-solid fa-soap"></i>Limpieza dental</span><b>$650</b></li>
+        <li><span><i class="fa-solid fa-tooth"></i>Resina (por pieza)</span><b>$850</b></li>
+        <li><span><i class="fa-solid fa-teeth"></i>Brackets</span><b><small>desde</small> $1,200<small>/mes</small></b></li>
+        <li><span><i class="fa-solid fa-star"></i>Blanqueamiento</span><b><small>desde</small> $3,500</b></li>
+        <li><span><i class="fa-solid fa-stethoscope"></i>Revisión y diagnóstico</span><b class="free">Sin costo</b></li>
+      </ul>
+      <ul class="pay">
+        <li><i class="fa-regular fa-credit-card"></i> Tarjeta</li>
+        <li><i class="fa-solid fa-building-columns"></i> Transferencia</li>
+        <li><i class="fa-solid fa-percent"></i> 6 meses sin intereses</li>
+      </ul>
+    </section>
+
+    <section class="block block--soft">
+      <h2>Horario</h2>
+      <dl class="hours">
+        <div><dt>Lunes a viernes</dt><dd>9:00 – 19:00</dd></div>
+        <div><dt>Sábado</dt><dd>9:00 – 14:00</dd></div>
+        <div><dt>Domingo</dt><dd>Solo urgencias</dd></div>
+      </dl>
+      <a class="btn btn--line" data-call><i class="fa-solid fa-truck-medical"></i> ¿Urgencia? Llámame</a>
+    </section>
+
+    <p class="address"><i class="fa-solid fa-location-dot"></i> Av. Pablo Neruda 2850, consultorio 304, Providencia, Guadalajara</p>
+
+    <div class="share-row">
+      <button class="btn btn--line" type="button" data-share><i class="fa-solid fa-share-nodes"></i> Compartir</button>
+      <button class="btn btn--line" type="button" data-qr><i class="fa-solid fa-qrcode"></i> Mi QR</button>
+    </div>
+
+    <a class="credit" href="../">Tarjeta de yalech →</a>
+  </main>
+
+  <dialog class="qr" id="qr" aria-labelledby="qr-title">
+    <div class="qr-inner" tabindex="-1" autofocus>
+      <p class="qr-title" id="qr-title">Escanea para guardar mi tarjeta</p>
+      <div class="qr-box" data-qr-box></div>
+      <p class="qr-name">Dra. Sofía Ríos</p>
+      <button class="btn btn--line" type="button" data-close>Cerrar</button>
+    </div>
+  </dialog>
+
+  <div class="toast" role="status" aria-live="polite" data-toast></div>
+
+  <script src="../assets/motion.js"></script>
+  <script src="../assets/qrcode.min.js"></script>
+  <script src="tarjeta.js?v=1"></script>
+  <script src="../comun.js?v=2"></script>
+</body>
+</html>

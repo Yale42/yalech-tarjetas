@@ -84,8 +84,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .qr-box svg path, .qr-box svg rect[fill="black"] { fill: var(--navy); }
 .qr-name { font-family: var(--serif); font-size: 1.3rem; color: var(--navy); }
 .qr .btn { width: 100%; }
-.toast { position: fixed; left: 50%; top: 16px; z-index: 100; max-width: calc(100% - 32px); padding: 12px 18px; border-radius: 14px; background: var(--navy); color: #fff; font-weight: 600; font-size: 0.92rem; text-align: center; translate: -50% -160%; transition: translate 0.35s var(--ease); pointer-events: none; }
-.toast.show { translate: -50% 0; }
+.toast { position: fixed; left: 50%; top: 16px; z-index: 100; max-width: calc(100% - 32px); padding: 12px 18px; border-radius: 14px; background: var(--navy); color: #fff; font-weight: 600; font-size: 0.92rem; text-align: center; translate: -50% -160%; visibility: hidden; transition: translate 0.35s var(--ease), visibility 0s linear .35s; pointer-events: none; }
+.toast.show { translate: -50% 0; visibility: visible; transition-delay: 0s; }
 
 @media (min-width: 600px) {
   body { padding: 30px 0; background: radial-gradient(circle at 50% 0, #e9e3d6, var(--ivory) 60%); }

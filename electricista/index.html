@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Ramón Ortiz · Electricista en Mérida</title>
+  <meta name="description" content="Electricista en Mérida: urgencias 24 horas, instalaciones, cortos y contactos. Garantía de 90 días y factura." />
+  <meta name="theme-color" content="#111111" />
+  <!-- Vista previa al compartir (WhatsApp, Facebook…). Al publicar, cambia la ruta de la imagen
+       por la URL completa, ej. https://tudominio.com/assets/og.jpg -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="Ramón Ortiz · Electricista en Mérida" />
+  <meta property="og:description" content="Urgencias 24 horas, instalaciones, cortos y contactos. Garantía de 90 días." />
+  <meta property="og:image" content="assets/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&family=Space+Mono:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="styles.css?v=1" />
+</head>
+<body>
+  <!-- Tarjeta digital de ejemplo (persona ficticia). Ilustrada con CSS: no usa fotos.
+       Datos, colonias donde trabaja y el formulario están en tarjeta.js (lo que comparten todas, en ../comun.js). -->
+  <main class="card">
+    <header class="head">
+      <div class="tape" aria-hidden="true"></div>
+      <div class="head-row">
+        <div class="bolt" aria-hidden="true">
+          <svg viewBox="0 0 64 64"><path d="M37 3 11 37h17l-5 24 30-38H35z" /></svg>
+        </div>
+        <div>
+          <p class="mono">Electricista certificado</p>
+          <h1 class="name">Ramón<br />Ortiz</h1>
+        </div>
+      </div>
+      <p class="role">Instalaciones, cortos y urgencias en Mérida, Yucatán</p>
+      <ul class="facts">
+        <li><strong>230+</strong><span>trabajos</span></li>
+        <li><strong>4.9★</strong><span>reseñas</span></li>
+        <li><strong>90 días</strong><span>garantía</span></li>
+      </ul>
+    </header>
+
+    <a class="sos" data-call>
+      <span class="sos-dot" aria-hidden="true"></span>
+      <span><b>¿Te quedaste sin luz?</b><small>Urgencias 24 horas · llámame ya</small></span>
+      <i class="fa-solid fa-phone-volume"></i>
+    </a>
+
+    <nav class="actions" aria-label="Contacto">
+      <a data-wa><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a>
+      <a data-mail><i class="fa-regular fa-envelope"></i><span>Correo</span></a>
+      <button type="button" data-vcard><i class="fa-solid fa-user-plus"></i><span>Guardar</span></button>
+    </nav>
+
+    <section class="block" id="zona">
+      <p class="mono mono--dark">Paso 1</p>
+      <h2>¿Llego a tu colonia?</h2>
+      <form class="zone" data-zona novalidate>
+        <label class="sr-only" for="zona-q">Tu colonia o código postal</label>
+        <input id="zona-q" name="q" maxlength="40" placeholder="Colonia o código postal" autocomplete="postal-code" />
+        <button class="btn btn--dark" type="submit">Revisar</button>
+      </form>
+      <p class="zone-result" data-zona-result aria-live="polite" hidden></p>
+      <details class="zone-list">
+        <summary>Ver colonias donde trabajo</summary>
+        <p data-zona-lista></p>
+      </details>
+    </section>
+
+    <section class="block block--yellow" id="problema">
+      <p class="mono mono--dark">Paso 2</p>
+      <h2>Cuéntame qué pasa</h2>
+      <form class="job" data-problema novalidate>
+        <fieldset>
+          <legend>¿Qué falla?</legend>
+          <div class="pills">
+            <label><input type="radio" name="tipo" value="No hay luz en la casa" /><span><i class="fa-solid fa-power-off"></i> No hay luz</span></label>
+            <label><input type="radio" name="tipo" value="Se bota la pastilla" /><span><i class="fa-solid fa-toggle-off"></i> Se bota la pastilla</span></label>
+            <label><input type="radio" name="tipo" value="Contacto o apagador" /><span><i class="fa-solid fa-plug"></i> Contacto o apagador</span></label>
+            <label><input type="radio" name="tipo" value="Lámpara o ventilador" /><span><i class="fa-solid fa-fan"></i> Lámpara o ventilador</span></label>
+            <label><input type="radio" name="tipo" value="Instalación nueva" /><span><i class="fa-solid fa-screwdriver-wrench"></i> Instalación nueva</span></label>
+            <label><input type="radio" name="tipo" value="Otro" /><span><i class="fa-solid fa-question"></i> Otro</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>¿Para cuándo?</legend>
+          <div class="seg">
+            <label><input type="radio" name="cuando" value="Urgente, hoy mismo" /><span>Hoy</span></label>
+            <label><input type="radio" name="cuando" value="Esta semana" checked /><span>Esta semana</span></label>
+            <label><input type="radio" name="cuando" value="Solo quiero cotizar" /><span>Cotizar</span></label>
+          </div>
+        </fieldset>
+        <label class="field"><span>Colonia</span><input name="colonia" maxlength="40" placeholder="Ej. García Ginerés" /></label>
+        <label class="field"><span>Detalles <small>(opcional)</small></span><textarea name="detalle" rows="2" maxlength="200" placeholder="Ej. huele a quemado en el contacto de la cocina"></textarea></label>
+        <p class="form-error" data-problema-error role="alert" hidden></p>
+        <button class="btn btn--dark btn--wide" type="submit"><i class="fa-brands fa-whatsapp"></i> Mandar por WhatsApp</button>
+        <p class="hint"><i class="fa-solid fa-camera"></i> Si puedes, mándame una foto: así llego con el material.</p>
+      </form>
+    </section>
+
+    <section class="block">
+      <h2>Precios de referencia</h2>
+      <ul class="prices">
+        <li><span>Visita y diagnóstico</span><b>$250</b></li>
+        <li><span>Cambiar contacto o apagador</span><b>$180</b></li>
+        <li><span>Instalar lámpara o ventilador</span><b>$350</b></li>
+        <li><span>Revisar corto circuito</span><b><small>desde</small> $450</b></li>
+        <li><span>Centro de carga nuevo</span><b><small>desde</small> $2,800</b></li>
+      </ul>
+      <p class="note"><i class="fa-solid fa-circle-info"></i> La visita se descuenta si hago el trabajo. Doy factura.</p>
+    </section>
+
+    <div class="share-row">
+      <button class="btn btn--line" type="button" data-share><i class="fa-solid fa-share-nodes"></i> Compartir</button>
+      <button class="btn btn--line" type="button" data-qr><i class="fa-solid fa-qrcode"></i> Mi QR</button>
+    </div>
+
+    <a class="credit" href="../">Tarjeta de yalech →</a>
+  </main>
+
+  <dialog class="qr" id="qr" aria-labelledby="qr-title">
+    <div class="qr-inner" tabindex="-1" autofocus>
+      <p class="qr-title" id="qr-title">Escanea para guardar mi tarjeta</p>
+      <div class="qr-box" data-qr-box></div>
+      <p class="qr-name">Ramón Ortiz · Electricista</p>
+      <button class="btn btn--line" type="button" data-close>Cerrar</button>
+    </div>
+  </dialog>
+
+  <div class="toast" role="status" aria-live="polite" data-toast></div>
+
+  <script src="../assets/motion.js"></script>
+  <script src="../assets/qrcode.min.js"></script>
+  <script src="tarjeta.js?v=1"></script>
+  <script src="../comun.js?v=2"></script>
+</body>
+</html>
