@@ -5,7 +5,7 @@
   --muted: #6a645b;
   --line: rgba(14, 15, 16, 0.12);
   --amber: #f2a65a;
-  --amber-text: #b45f17;
+  --amber-text: #9a5113;
 
   --font: "Schibsted Grotesk", system-ui, sans-serif;
   --tracking: -0.03em;
@@ -129,7 +129,7 @@ body {
 
 /* ¿No sabes cuál? → abre el cotizador */
 .help { margin-top: 18px; font-size: 0.95rem; color: var(--muted); animation: rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.55s both; }
-.help a { color: var(--amber-text); font-weight: 600; text-decoration: none; border-bottom: 1.5px solid rgba(180, 95, 23, 0.35); transition: border-color 0.2s ease; }
+.help a { color: var(--amber-text); font-weight: 600; text-decoration: none; border-bottom: 1.5px solid rgba(154, 81, 19, 0.35); transition: border-color 0.2s ease; }
 .help a:hover { border-color: var(--amber-text); }
 
 /* Cotizador (assets/cotizar.css): colores de esta página */
@@ -459,10 +459,11 @@ body {
 .device-phone img { border-radius: 12px; }
 @media (max-width: 640px) { .item--system .device { max-width: 320px; } }
 
-/* Sitios web y landing pages: filas de 3 centradas (en lugar de 4 + sobrantes) */
+/* En compu y tablet: hasta 4 por fila (3 para sistemas) y la última fila centrada, sin huecos a la derecha */
 @media (min-width: 641px) {
-  #sitios-web .grid, #landing-pages .grid { display: flex; flex-wrap: wrap; justify-content: center; }
-  #sitios-web .item, #landing-pages .item { flex: 0 1 calc((100% - 64px) / 3); min-width: 250px; }
+  .grid { display: flex; flex-wrap: wrap; justify-content: center; }
+  .item { flex: 0 1 calc((100% - 96px) / 4); min-width: 230px; }
+  .item--system { flex-basis: calc((100% - 64px) / 3); min-width: 280px; }
 }
 
 /* ---------- Celular: plantillas en carrusel ---------- */
@@ -591,3 +592,10 @@ body {
 .tool .btn { margin-top: 16px; background: var(--bg); color: var(--ink); border-color: var(--bg); }
 .tool .btn:hover { background: var(--amber); border-color: var(--amber); }
 @media (max-width: 800px) { .tool { margin-inline: 16px; } }
+
+/* Los botones de cada ejemplo no se parten en dos líneas */
+.item-actions .btn { white-space: nowrap; padding-inline: 12px; }
+
+/* Los botones de todas las tarjetas quedan a la misma altura, aunque la descripción mida distinto */
+.item-info { flex: 1; display: flex; flex-direction: column; }
+.item-actions { margin-top: auto; padding-top: 18px; }

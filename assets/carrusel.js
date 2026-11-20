@@ -4,13 +4,16 @@
 //   · una «probadita»: la primera vez que aparece en pantalla, los ejemplos se asoman y regresan
 // Uso: carrusel(elemento) o carrusel(elemento, { flechas: false }). Solo se muestra cuando de verdad
 // hay más contenido del que cabe (en computadora, si todo cabe, no aparece nada).
+// Si ocultas o muestras elementos (por ejemplo con un filtro), avísale con:
+//   elemento.dispatchEvent(new Event('carrusel:actualizar'))
 // Estilos en assets/carrusel.css. Necesita Font Awesome para los íconos de las flechas.
 (() => {
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   window.carrusel = (rail, { flechas = true } = {}) => {
     if (!rail || rail.dataset.carrusel) return;
-    const items = [...rail.children].filter(el => el.offsetParent !== null || el.getClientRects().length);
+    const visibles = () => [...rail.children].filter(el => !el.hidden && (el.offsetParent !== null || el.getClientRects().length));
+    let items = visibles();
     if (items.length < 2) return;
     rail.dataset.carrusel = '1';
 
@@ -28,13 +31,24 @@
 
     const ui = document.createElement('div');
     ui.className = 'rail-ui';
-    ui.innerHTML = `<div class="rail-dots">${items.map((_, i) => `<button type="button" aria-label="Ir al ${i + 1} de ${items.length}"></button>`).join('')}</div><span class="rail-count" aria-live="polite"></span>`;
+    ui.innerHTML = '<div class="rail-dots"></div><span class="rail-count" aria-live="polite"></span>';
     caja.after(ui);
-    const puntos = [...ui.querySelectorAll('.rail-dots button')];
+    const cajaPuntos = ui.querySelector('.rail-dots');
     const cuenta = ui.querySelector('.rail-count');
+    let puntos = [];
+    const armarPuntos = () => {
+      puntos = items.map((_, i) => {
+        const b = Object.assign(document.createElement('button'), { type: 'button' });
+        b.setAttribute('aria-label', `Ir al ${i + 1} de ${items.length}`);
+        b.addEventListener('click', () => ir(i));
+        return b;
+      });
+      cajaPuntos.replaceChildren(...puntos);
+    };
 
-    const base = () => items[0].offsetLeft;
+    const base = () => (items[0] ? items[0].offsetLeft : 0);
     const actual = () => {
+      if (!items.length) return 0;
       const x = rail.scrollLeft;
       let mejor = 0;
       items.forEach((el, i) => { if (Math.abs(el.offsetLeft - base() - x) < Math.abs(items[mejor].offsetLeft - base() - x)) mejor = i; });
@@ -44,11 +58,11 @@
     };
     const ir = i => {
       i = Math.max(0, Math.min(items.length - 1, i));
+      if (!items[i]) return;
       rail.scrollTo({ left: items[i].offsetLeft - base(), behavior: calm ? 'auto' : 'smooth' });
     };
     prev.addEventListener('click', () => ir(actual() - 1));
     next.addEventListener('click', () => ir(actual() + 1));
-    puntos.forEach((p, i) => p.addEventListener('click', () => ir(i)));
 
     let pendiente = false;
     const pintar = () => {
@@ -66,7 +80,16 @@
     const pedir = () => { if (!pendiente) { pendiente = true; requestAnimationFrame(pintar); } };
     rail.addEventListener('scroll', pedir, { passive: true });
     addEventListener('resize', pedir);
+    armarPuntos();
     pintar();
+
+    // Cuando cambian los elementos visibles: vuelve a contar y regresa al inicio
+    rail.addEventListener('carrusel:actualizar', () => {
+      items = visibles();
+      armarPuntos();
+      rail.scrollLeft = 0;
+      pintar();
+    });
 
     // La «probadita»: una sola vez, cuando el carrusel ya está a la vista
     if (!calm && 'IntersectionObserver' in window) {

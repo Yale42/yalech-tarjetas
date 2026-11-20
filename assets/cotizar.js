@@ -155,4 +155,15 @@
     abrir(t.dataset.cotizar, t.dataset.ejemplo);
   });
   window.cotizar = abrir; // para las pruebas
+
+  // ---------- Llegar ya con el cotizador abierto: ?cotizar=landing&ejemplo=Restaurante ----------
+  // (lo usa el botón «Quiero una así» de las plantillas). Solo se aceptan valores conocidos.
+  const q = new URLSearchParams(location.search);
+  const pedido = q.get('cotizar');
+  if (pedido !== null && (pedido === '' || porId(pedido))) {
+    const conocidos = [...document.querySelectorAll('[data-ejemplo]')].map(el => el.dataset.ejemplo);
+    const ej = conocidos.includes(q.get('ejemplo')) ? q.get('ejemplo') : '';
+    history.replaceState(null, '', location.pathname + location.hash);
+    abrir(pedido, ej);
+  }
 })();
