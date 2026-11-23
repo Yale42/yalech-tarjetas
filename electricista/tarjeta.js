@@ -63,7 +63,7 @@ window.TARJETA = {
       const falta = !tipo ? 'Elige qué falla.' : !colonia ? 'Escribe tu colonia para saber si llego.' : '';
       error.textContent = falta;
       error.hidden = !falta;
-      if (falta) return;
+      if (falta) return form.querySelector(!tipo ? '[name=tipo]' : '[name=colonia]')?.focus();
       const urgente = form.cuando.value.startsWith('Urgente');
       abrirWA([
         `${urgente ? '🚨 ' : ''}Hola Ramón, necesito un electricista ⚡`,

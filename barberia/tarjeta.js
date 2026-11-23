@@ -73,7 +73,7 @@ window.TARJETA = {
       const falta = !s.length ? 'Elige al menos un servicio.' : !dia ? 'Elige el día.' : !h ? 'Elige la hora.' : '';
       error.textContent = falta;
       error.hidden = !falta;
-      if (falta) return;
+      if (falta) return form.querySelector(!s.length ? '[name=serv]' : !dia ? '[name=dia]' : '[name=hora]')?.focus();
       const nombre = form.nombre.value.trim();
       abrirWA([
         'Hola Toño, quiero apartar lugar 💈',

@@ -85,7 +85,7 @@ window.TARJETA = {
       const falta = !f ? '¿Para qué día lo necesitas?' : f < minima ? `Necesito al menos ${P.anticipacion} días para prepararlo. Escríbeme si es urgente.` : '';
       error.textContent = falta;
       error.hidden = !falta;
-      if (falta) return;
+      if (falta) return form.fecha.focus();
       const c = cotizar();
       const fecha = new Date(f + 'T12:00').toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long' });
       const msg = form.mensaje.value.trim();

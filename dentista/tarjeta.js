@@ -37,7 +37,7 @@ window.TARJETA = {
       const falta = !motivo ? 'Elige para qué es la cita.' : !dia ? 'Elige un día.' : '';
       error.textContent = falta;
       error.hidden = !falta;
-      if (falta) return;
+      if (falta) return form.querySelector(!motivo ? '[name=motivo]' : '[name=dia]')?.focus();
       abrirWA([
         'Hola Dra. Sofía, quiero agendar una cita 🦷',
         `Motivo: ${motivo}`,
