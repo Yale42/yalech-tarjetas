@@ -3,7 +3,7 @@
 // enseña una ventanita con lo que pasaría de verdad y una invitación a cotizar uno igual.
 // Es el mismo archivo en los 7 repos (assets/muestra.js + assets/muestra.css).
 //
-// Uso (al final del <body>):
+// Uso (al final del <body>; la barra de arriba .mu-barra y muestra.css van en el HTML de cada ejemplo):
 //   <script src="../assets/muestra.js?v=2" data-servicio="menu" data-ejemplo="Taquería" data-para="La Lumbre"></script>
 //   data-servicio → id del cotizador: bio, landing, web, menu, invitacion, tarjeta, sistema.
 //   data-ejemplo  → nombre de la tarjeta en la portada; se pasa al cotizador.
@@ -43,10 +43,13 @@
     rayo: svg('<path d="M13 2L4 14h7l-1 8 9-12h-7z" fill="currentColor" stroke="none"/>'),
   };
 
-  const css = document.createElement('link');
-  css.rel = 'stylesheet';
-  css.href = new URL('muestra.css?v=2', yo.src).href;
-  document.head.appendChild(css);
+  // Los ejemplos ya traen muestra.css en el <head> (por la barra de arriba); si no, se agrega aquí
+  if (!document.querySelector('link[href*="muestra.css"]')) {
+    const css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = new URL('muestra.css?v=3', yo.src).href;
+    document.head.appendChild(css);
+  }
 
   const dlg = document.createElement('dialog');
   dlg.className = 'mu';
@@ -132,6 +135,29 @@
     if (esWA(url)) { abrirWA(String(url)); return null; }
     return abrirVentana(url, ...resto);
   };
+
+  // Encabezados pegados arriba (fijos o sobre la foto): empiezan debajo de la barra de ejemplo
+  // y suben hasta arriba cuando la barra se va con el scroll.
+  const barra = document.querySelector('.mu-barra');
+  if (barra) {
+    const enc = [...document.querySelectorAll('body *')].filter(el => {
+      if (barra.contains(el)) return false;
+      const cs = getComputedStyle(el);
+      if (!/fixed|absolute/.test(cs.position) || cs.top !== '0px') return false;
+      const r = el.getBoundingClientRect();
+      if (r.height > innerHeight * 0.3 || r.width < innerWidth * 0.6) return false; // fondos y portadas completas no
+      return cs.position === 'fixed' || !el.offsetParent || el.offsetParent === document.body;
+    });
+    if (enc.length) {
+      const fijos = enc.filter(el => getComputedStyle(el).position === 'fixed');
+      enc.filter(el => !fijos.includes(el)).forEach(el => { el.style.top = barra.offsetHeight + 'px'; });
+      let pendiente = false;
+      const ajustar = () => { pendiente = false; const y = Math.max(0, barra.getBoundingClientRect().bottom); fijos.forEach(el => { el.style.top = y + 'px'; }); };
+      ajustar();
+      addEventListener('scroll', () => { if (!pendiente) { pendiente = true; requestAnimationFrame(ajustar); } }, { passive: true });
+      addEventListener('resize', ajustar);
+    }
+  }
 
   window.muestra = { whatsapp: msg => abrir('wa', msg, '1') };
 })();

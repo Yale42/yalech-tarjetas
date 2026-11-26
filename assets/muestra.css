@@ -50,3 +50,21 @@
 .mu .mu-btn--line { background: transparent; color: #17171a; box-shadow: inset 0 0 0 1.5px #d4d4da; }
 .mu .mu-btn--line:hover { background: #f4f4f6; }
 .mu-btn:focus-visible, .mu-x:focus-visible { outline: 3px solid #4c8dff; outline-offset: 2px; }
+
+/* Barra de arriba en cada ejemplo: dice que es ficticio y cómo regresar o cotizar (misma idea que la de los sistemas).
+   Va en el HTML (no la agrega el JS) para que la página no brinque al cargar. */
+.mu-barra {
+  position: relative; z-index: 60;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 14px;
+  padding: 7px 14px; background: #16181d; color: #e8e9ec;
+  font: 400 12.5px/1.35 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; letter-spacing: 0; text-align: center; text-transform: none;
+}
+.mu-barra strong { color: #ffd166; font-weight: 700; }
+.mu-barra-quien { opacity: .75; }
+@media (max-width: 479px) { .mu-barra-quien { display: none; } } /* en celular cabe en un renglón */
+.mu-barra a { color: #fff; font-weight: 600; text-decoration: none; }
+.mu-barra a:hover { text-decoration: underline; }
+.mu-barra .mu-barra-cta { padding: 3px 11px; border-radius: 99px; background: #ffd166; color: #16181d; }
+.mu-barra .mu-barra-cta:hover { text-decoration: none; background: #ffe199; }
+.mu-barra a:focus-visible { outline: 2px solid #ffd166; outline-offset: 2px; border-radius: 4px; }
+@media print { .mu-barra { display: none; } }

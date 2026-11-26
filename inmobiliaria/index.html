@@ -21,8 +21,15 @@
   <link rel="stylesheet" href="../assets/iconos/iconos.css?v=2" />
   <link rel="stylesheet" href="../assets/carrusel.css?v=3" />
   <link rel="stylesheet" href="styles.css?v=3" />
+  <link rel="stylesheet" href="../assets/muestra.css?v=4" />
 </head>
 <body>
+  <!-- Aviso de ejemplo (ficticio) con regreso y cotizador. Para un cliente real, borra este bloque. -->
+  <div class="mu-barra" role="note">
+    <span><strong>Ejemplo ficticio</strong><span class="mu-barra-quien"> · hecho por yalech</span></span>
+    <a href="../">← Más ejemplos</a>
+    <a class="mu-barra-cta" href="../?cotizar=tarjeta&amp;ejemplo=Inmobiliaria">Quiero una así</a>
+  </div>
   <!-- Tarjeta digital de ejemplo (persona e inmobiliaria ficticias). Fotos de Unsplash, uso libre.
        Datos de contacto en tarjeta.js (el funcionamiento, en ../comun.js). Para agregar una
        propiedad, copia un <li class="prop">. -->
@@ -124,7 +131,7 @@
   <script src="../assets/carrusel.js?v=3"></script>
   <script>carrusel(document.querySelector('.props'));</script>
   <!-- Modo muestra (ejemplo ficticio). Para un cliente real, borra la siguiente línea. -->
-  <script src="../assets/muestra.js?v=2" data-servicio="tarjeta" data-ejemplo="Inmobiliaria" data-para="Carla Méndez"></script>
+  <script src="../assets/muestra.js?v=4" data-servicio="tarjeta" data-ejemplo="Inmobiliaria" data-para="Carla Méndez"></script>
   <script src="../assets/errores.js?v=1"></script>
 </body>
 </html>
